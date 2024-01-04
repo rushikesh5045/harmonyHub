@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Feedback</title>
+  </head>
+  <body>
+    <h1>Feedback Data</h1>
+
+    {% if feedback_data %}
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Query</th>
+          <th>Document Number</th>
+          <th>Relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for feedback_entry in feedback_data %}
+        <tr>
+          <td>{{ feedback_entry[0] }}</td>
+          <td>{{ feedback_entry[1] }}</td>
+          <td>{{ feedback_entry[2] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No feedback data available.</p>
+    {% endif %}
+
+    <br />
+    <a href="/" class="back">Back to Search</a>
+  </body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Results</title>
+    <script>
+      function applyFilters() {
+        // Collect filter values
+        const artistFilter = document
+          .getElementById("artistFilter")
+          .value.toLowerCase();
+        const songFilter = document
+          .getElementById("songFilter")
+          .value.toLowerCase();
+        const documentFilter = document
+          .getElementById("documentFilter")
+          .value.toLowerCase();
+
+        // Apply filters to the displayed results
+        const resultsList = document.querySelectorAll(".result-item");
+        resultsList.forEach((result) => {
+          const artist = result
+            .querySelector(".artist-name")
+            .innerText.toLowerCase();
+          const song = result
+            .querySelector(".song-name")
+            .innerText.toLowerCase();
+          const documentNumber = result
+            .querySelector(".document-number")
+            .innerText.toLowerCase();
+
+          // Check if the result matches the applied filters
+          const artistMatch = artist.includes(artistFilter);
+          const songMatch = song.includes(songFilter);
+          const documentMatch = documentNumber.includes(documentFilter);
+
+          // Show/hide the result based on filter matches
+          result.style.display =
+            artistMatch && songMatch && documentMatch ? "block" : "none";
+        });
+      }
+    </script>
+
+    <style>
+      #filterForm label {
+        display: inline-block;
+        margin-bottom: 5px;
+        margin-right: 10px;
+        display: flex;
+        flex-wrap: wrap; /* Add some space between labels and inputs */
+      }
+
+      #filterForm input {
+        display: inline-block;
+        width: calc(
+          33.33% - 10px
+        ); /* Adjust width based on the number of inputs */
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-right: 10px; /* Add some space between inputs */
+      }
+
+      #filterForm button {
+        display: inline-block;
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #filterForm button:hover {
+        background-color: #45a049;
+      }
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        background-color: #f8f8f8; /* Lighter background color */
+        margin: 1rem;
+        padding: 0;
+      }
+
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5em;
+        color: #333;
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      p:first-child {
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+
+      p:not(:first-child) {
+        font-style: italic;
+        margin-bottom: 5px;
+      }
+
+      p:last-child {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.1em;
+        line-height: 1.6;
+        margin-bottom: 5px;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .artist-info {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .lyrics {
+        text-align: center;
+        font-size: 1.5rem;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .pagination a {
+        margin: 0 5px;
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 3px;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+      }
+
+      .pagination a:hover {
+        background-color: #45a049;
+      }
+
+      .pagination .disabled {
+        pointer-events: none;
+        background-color: #ccc;
+        color: #333;
+        box-shadow: none;
+      }
+
+      .back {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 3px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+      }
+
+      .back:hover {
+        background-color: #555;
+      }
+
+      .search-info {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* Additional styles for mobile responsiveness */
+      @media (max-width: 768px) {
+        li {
+          padding: 15px;
+        }
+
+        .pagination a,
+        .pagination .disabled {
+          padding: 8px 12px;
+        }
+      }
+
+      .feedback-section {
+        font-size: 0.5rem;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-top: 20px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .feedback-form {
+        margin-top: 15px;
+      }
+
+      .feedback-form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .feedback-form input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .feedback-form button {
+        font-size: 0.5rem;
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .feedback-form button:hover {
+        background-color: #45a049;
+      }
+
+      .feedback-section {
+        /* ... (your existing styles for feedback section) */
+        {% if feedback_disabled %}
+          display: none; /* Hide the feedback section if feedback is disabled */
+        {% endif %}
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Search Results</h1>
+
+    {% if query %}
+    <!-- Filter Form -->
+    <form id="filterForm">
+      <label for="artistFilter">Filter by Artist:</label>
+      <input type="text" id="artistFilter" name="artistFilter" />
+
+      <label for="songFilter">Filter by Song:</label>
+      <input type="text" id="songFilter" name="songFilter" />
+
+      <label for="documentFilter">Filter by Document Number:</label>
+      <input type="text" id="documentFilter" name="documentFilter" />
+
+      <button type="button" onclick="applyFilters()">Apply Filters</button>
+    </form>
+    {% endif %} {% if matching_documents %}
+    <ul>
+      {% for document in matching_documents %}
+      <li class="result-item">
+        <div>
+          <p class="document-number">
+            Document Number: {{ document['document_number'] }}
+          </p>
+          <p class="artist-name">Artist: {{ document['artist_name'] }}</p>
+          <p>
+            Song:
+            <span style="color: blue" class="song-name">
+              {{ document['song_name'] }}
+            </span>
+          </p>
+        </div>
+        <p>Lyrics:</p>
+        <div class="lyrics">
+          <p>{{ document['lyrics_body'] }}</p>
+        </div>
+        <!-- Relevance Feedback Form -->
+        <div
+          id="feedbackSection_{{ document['document_number'] }}"
+          class="feedback-section"
+        >
+          <h2>Feedback Section</h2>
+          <form
+            class="feedback-form"
+            method="post"
+            action="{{ url_for('submit_feedback') }}"
+          >
+            <input type="hidden" name="query" value="{{ query }}" />
+            <input
+              type="hidden"
+              name="document_number"
+              value="{{ document['document_number'] }}"
+            />
+
+            <label for="feedback"
+              >Relevance Feedback: How relevant is this document to your query?
+              (Enter a number from 1 to 5)</label
+            >
+            <input type="number" name="feedback" min="1" max="5" required />
+
+            <button type="submit">Submit Feedback</button>
+          </form>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Use JavaScript to hide feedback sections based on the feedback_disabled status
+        {% for document in matching_documents %}
+          {% if document['feedback_disabled'] %}
+            document.getElementById('feedbackSection_{{ document['document_number'] }}').style.display = 'none';
+          {% endif %}
+        {% endfor %}
+      });
+    </script>
+    {% else %}
+    <p>No matching documents found.</p>
+    {% endif %}
+
+    <!-- Pagination Links -->
+    {% if results %}
+    <div class="pagination">
+      {% if page > 1 %}
+      <a href="?query={{ request.args.get('query') }}&page={{ page - 1 }}"
+        >Previous</a
+      >
+      {% endif %}
+
+      <!-- Assuming you have a variable with the total count of results -->
+      {% if (page * 10) < 100 %}
+      <a href="?query={{ request.args.get('query') }}&page={{ page + 1 }}"
+        >Next</a
+      >
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <a href="/" class="back">Back to Search</a>
+  </body>
+</html>
